@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	 <meta charset="UTF-8">
+	 <title>PlatiniPlanet</title>
+	 <style>
+body {
+  background-image: url('farm.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-size: 100% 100%;
+}
+</style>
+</head>
+<body>
+	<table>
+		<tr>
+			<th><img src="maroc.jpg" style="width:60px;height:60px;"></th>
+			<th colspan="3"><H1><i><u>PlatiniPlanete</u></i></H1></th>
+			<th><img src="euro.png" style="width:60px;height:60px;"></th>
+		</tr>
+	</table>
+	<h3>INFOS DE PROFIL</h3>
+	<form action="result" method="get">
+		<fieldset>
+			<input type="radio" name="sexe" value="F" checked> Femme <input type="radio" name="sexe" value="H"> Homme <br>
+			<input type="checkbox" name="societe" value="oui"> Oui.je suis une Société<br>
+			Nom société:<br>
+			<input type="text" name="nom"><br>
+			Titre Profil*:<br>
+			<input type="text" name="titre" placeholder="EX:Developpeur senior en php" size="100" required><br>
+			Pays/Ville*:<br>
+			<select name="ville" size="1" required>
+				<option value="" >-Veuillez choisir-</option>
+				<optgroup label="Maroc"	>
+						<option value="Maroc/fes">Fes</option>
+						<option value="Maroc/tanger">Tanger</option>
+						<option value="Maroc/casablanca">Casablanca</option>
+						<option value="Maroc/meknes">Meknes</option>
+				</optgroup>
+				<optgroup label="France">
+						<option value="France/paris">Paris</option>
+						<option value="France/bordeaux">Bordeaux</option>
+						<option value="France/dijon">Dijon</option>
+				</optgroup>
+			</select><br>
+			Téléphone*: <span style="color:Gray">Confidentiel</span><br>
+			<input type="password" name="telephone" ><br>
+		</fieldset>
+		<fieldset>		
+			Disponibilié*:<br>
+			<input type="checkbox" name="distance" value="oui" required> (A Distance uniquement)<br>
+			Tarif*:<br>
+			<input type="number" name="tarif" placeholder="Ex:400" min="0" required>Dh/Jour<br>
+			<b>Competences maitrisés</b><br>
+			<select  id="langage" size="1">
+				<option value="phpMySQL">php/MySQL</option>
+				<option value="javaJEE">Java/JEE</option>
+				<option value="Devmobile">Dev.mobile</option>
+			</select>
+			<select  id="niveau" size="1">
+				<option value="debutant">Debutant</option>
+				<option value="amateur">Amateur</option>
+				<option value="senior">Senior</option>
+			</select>
+			<input type="button" value="ajouter" onclick="ajouter();"><br>
+			<b>Liste de vos competences</b><br>
+			<textarea name="competences" rows="4" readonly> </textarea><br>
+			<select name="competences1" size="4"></select><br>
+			<input type="button" value="Valider" onclick="afficher();" >
+		</fieldset>
+	  <script type="text/javascript">
+                  
+				  
+            function ajouter(){               
+                var niveau = document.getElementById("niveau").value; 
+                var langage = document.getElementById("langage").value;
+				var val= langage+"-"+niveau;
+				//cas textarea
+				var competences = document.getElementsByName("competences")[0]; 
+				if(competences.value.indexOf(val)==-1)competences.value+=val+"\n";
+				
+				//cas select
+				var competences = document.getElementsByName("competences1")[0]; 
+				if(competences.innerHTML.indexOf(val)==-1)competences.innerHTML+="<option value='"+val+"' >"+val+"</option>";
+               
+			  /* var opt = document.createElement('option');
+                opt.appendChild( document.createTextNode(val) );
+                opt.value =val;
+                competences.appendChild(opt);*/
+            }
+			 function afficher(){
+				var titre=document.getElementsByName("titre")[0].value; 
+				var ville=document.getElementsByName("ville")[0].value;
+				var tel=document.getElementsByName("telephone")[0].value;
+				var distance=document.getElementsByName("distance")[0].checked;
+                var tarif=document.getElementsByName("tarif")[0].value;
+				
+				if(titre.trim().length==0 || ville.trim().length==0 || tel.trim().length==0 || !distance || tarif.trim().length==0 )alert("vous devez saisir les champs obligatoires");
+                else{
+					var afficher="Sexe : "+(document.getElementsByName("sexe")[0].checked?"Femme":"Homme");
+					  afficher +="\nJe suis une societe : "+(document.getElementsByName("societe")[0].checked?"Oui":"Non");
+					  afficher +="\nNom de societe : "+document.getElementsByName("nom")[0].value;
+					  afficher +="\nTitre Profil: "+titre;//
+					  afficher +="\nPays/Ville : "+ville;//
+					  afficher +="\nTelephone : "+tel;//
+					  afficher +="\nDisponiblite  à distance : "+(distance?"oui":"non");//
+					  afficher +="\nTarif : "+tarif;//
+					  afficher +="\nCompetences : \n"+document.getElementsByName("competences")[0].value;//cas textarea
+					   //cas select
+					   var competences =document.getElementsByName("competences1")[0];
+					  for(var i=0;i<competences.options.length;i++)	afficher +="**"+competences.options[i].value+"\n";
+						
+					  alert(afficher);
+				}
+
+                   
+            }
+			
+           
+            </script>
+	</body>
+</html>	
+		
+			
+			
+			
+			
